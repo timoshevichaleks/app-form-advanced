@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './user.class';
+import { User } from '../user.class';
 
 @Component({
   selector: 'app-form',
@@ -9,7 +9,7 @@ import { User } from './user.class';
 export class FormComponent implements OnInit {
 
   roles: string[] = ['Гость', 'Модератор', 'Администратор'];
-  model: User = new User(1, '', '', 0);
+  model: User = new User(null, null, null, null);
 
   constructor() { }
 

@@ -12,7 +12,7 @@
 
   <div class="mb-3">
     <label for="role">Роль: </label>
-    <select id="role" name="role" class="form-select" [(ngModel)]="model.role">
+    <select id="role" name="role" class="form-select" [(ngModel)]="model.role" required>
       <option *ngFor="let role of roles" [value]="role">{{role}}</option>
     </select>
   </div>
