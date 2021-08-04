@@ -2,17 +2,23 @@
 
   <div class="mb-3">
     <label for="name">Имя: </label>
-    <input class="form-control" type="text" id="name" name="name" required [(ngModel)]="model.name">
+    <input id="name" type="text" class="form-control" name="name" placeholder="Имя" #name="ngModel" required minlength="4" maxlength="10" [(ngModel)]="model.name">
+    <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div *ngIf="name.errors && name.errors.required">Имя обязательно</div>
+      <div *ngIf="name.errors && name.errors.minlength">Имя должно содержать минимум 4 символа</div>
+    </div>
   </div>
 
   <div class="mb-3">
     <label for="age">Возраст: </label>
-    <input class="form-control" type="text" id="age" name="age" required [(ngModel)]="model.age">
+    <input class="form-control" type="text" id="age" name="age" required [(ngModel)]="model.age" #age="ngModel" placeholder="Возраст">
+    <div class="alert alert-danger" *ngIf="age.invalid && (age.dirty || age.touched)">Возраст обязателен</div>
   </div>
 
   <div class="mb-3">
     <label for="role">Роль: </label>
     <select id="role" name="role" class="form-select" [(ngModel)]="model.role" required>
+      <option selected disabled>Выберите роль</option>
       <option *ngFor="let role of roles" [value]="role">{{role}}</option>
     </select>
   </div>
