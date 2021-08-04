@@ -1,4 +1,4 @@
-<form>
+<form #userForm="ngForm" (ngSubmit)="onSubmit()">
 
   <div class="mb-3">
     <label for="name">Имя: </label>
@@ -18,17 +18,13 @@
   <div class="mb-3">
     <label for="role">Роль: </label>
     <select id="role" name="role" class="form-select" [(ngModel)]="model.role" required>
-      <option selected disabled>Выберите роль</option>
+      <option selected disabled value="">Выберите роль</option>
       <option *ngFor="let role of roles" [value]="role">{{role}}</option>
     </select>
   </div>
 
   <div class="mb-3">
-    <button class="btn btn-info">Сохранить</button>
+    <button class="btn btn-info" [disabled]="userForm.form.invalid">Сохранить</button>
   </div>
 
 </form>
-
-<p>
-  {{diagnostic}}
-</p>

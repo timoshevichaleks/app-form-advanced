@@ -16,8 +16,8 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get diagnostic(): string {
-    return JSON.stringify(this.model);
+  onSubmit() {
+    console.log('Form submited');
   }
 
 }
