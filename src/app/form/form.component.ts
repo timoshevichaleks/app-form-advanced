@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { User } from '../user.class';
 
 @Component({
@@ -10,11 +10,11 @@ import { User } from '../user.class';
 export class FormComponent implements OnInit {
 
 
-  userForm: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, Validators.minLength(7)])
+  userForm: FormGroup = this.formBuilder.group({
+    name: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(7)]]
   })
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void { }
 
