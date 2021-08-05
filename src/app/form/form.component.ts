@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { emailValidator, rangeValidator } from '../custom-validators';
 import { User } from '../user.class';
 
 @Component({
@@ -36,11 +37,11 @@ export class FormComponent implements OnInit {
       },
       email: {
         required: 'Email обязателен',
-        pattern: 'Неправильный формат email адреса'
+        emailValidator: 'Неправильный формат email адреса'
       },
       age: {
         required: 'Возраст обязателен',
-        pattern: 'Значение должно быть целым числом.'
+        rangeValidator: 'Значение должно быть в диапазоне 18...122'
       },
       role: {
         required: 'Обязательное поле'
@@ -68,11 +69,12 @@ export class FormComponent implements OnInit {
       ],
       email: [this.user.email, [
         Validators.required,
-        Validators.pattern(/^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,6})$/)]
+        emailValidator]
       ],
       age: [this.user.age, [
         Validators.required,
-        Validators.pattern(/^\d+/)]],
+        rangeValidator(18, 122)]
+      ],
       role: [this.user.role, [Validators.required]]
     });
 
