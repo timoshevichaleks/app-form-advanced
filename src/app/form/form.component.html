@@ -1,22 +1,35 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
 
   <div class="mb-3">
-    <label for="name">Имя: </label>
+    <label for="name">Логин: </label>
     <input id="name" type="text" class="form-control" placeholder="Имя" formControlName="name">
-    <div class="alert alert-danger" *ngIf="userForm.get('name')?.hasError('required') && (userForm.get('name')?.touched || userForm.get('name')?.dirty)">
-      Имя обязательно
-    </div>
+    <div *ngIf="formErrors.name" class="alert alert-danger">{{formErrors.name}}</div>
   </div>
 
   <div class="mb-3">
     <label for="password">Пароль: </label>
-    <input class="form-control" type="text" id="password" placeholder="Возраст" formControlName="password">
-    <div class="alert alert-danger" *ngIf="userForm.get('password')?.hasError('required') && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
-      Пароль обязателен
-    </div>
-    <div class="alert alert-danger" *ngIf="userForm.get('password')?.hasError('minlength') && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
-      Требуется минимум 7 символов
-    </div>
+    <input id="password" class="form-control" type="text" placeholder="Пароль" formControlName="password">
+    <div *ngIf="formErrors.password" class="alert alert-danger">{{formErrors.password}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email">Email: </label>
+    <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
+    <div *ngIf="formErrors.email" class="alert alert-danger">{{formErrors.email}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="age">Возраст: </label>age
+    <input class="form-control" type="text" id="age" placeholder="Возраст" formControlName="age">
+    <div *ngIf="formErrors.age" class="alert alert-danger">{{formErrors.age}}</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="role">Роль: </label>
+    <select id="role" name="role" class="form-select" formControlName="role">
+      <option selected disabled [value]="null">Выберите роль</option>
+      <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+    </select>
   </div>
 
   <div class="mb-3">
