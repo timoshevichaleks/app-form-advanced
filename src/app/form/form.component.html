@@ -1,35 +1,42 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
 
+  <!-- (blur)="onValueChanged()" - устанавливаем на потерю фокуса (blur) функцию onValueChanged() -->
   <div class="mb-3">
-    <label for="name">Логин: </label>
-    <input id="name" type="text" class="form-control" placeholder="Имя" formControlName="name">
-    <div *ngIf="formErrors.name" class="alert alert-danger">{{formErrors.name}}</div>
+    <label for="name">{{label.name}}: <span class="text-danger">*</span></label>
+    <input id="name" type="text" class="form-control" placeholder="{{formPlaceholders.name}}" formControlName="name" (blur)="onValueChanged()" [ngClass]="{'is-valid': name.valid, 'is-invalid': name.invalid && name.touched}">
+    <div *ngIf="name.valid" class="valid-feedback">{{formSuccess.name}}</div>
+    <div *ngIf="name.invalid && name.touched" class="invalid-feedback">{{formErrors.name}}</div>
   </div>
 
   <div class="mb-3">
-    <label for="password">Пароль: </label>
-    <input id="password" class="form-control" type="text" placeholder="Пароль" formControlName="password">
-    <div *ngIf="formErrors.password" class="alert alert-danger">{{formErrors.password}}</div>
+    <label for="password">{{label.password}}: <span class="text-danger">*</span></label>
+    <input id="password" type="password" class="form-control" placeholder="{{formPlaceholders.password}}" formControlName="password" (blur)="onValueChanged()" [ngClass]="{'is-valid': password.valid, 'is-invalid': password.invalid && password.touched}">
+    <div *ngIf="password.valid" class="valid-feedback">{{formSuccess.password}}</div>
+    <div *ngIf="password.invalid && password.touched" class="invalid-feedback">{{formErrors.password}}</div>
   </div>
 
   <div class="mb-3">
-    <label for="email">Email: </label>
-    <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
-    <div *ngIf="formErrors.email" class="alert alert-danger">{{formErrors.email}}</div>
+    <label for="email">{{label.email}}: <span class="text-danger">*</span></label>
+    <input id="email" type="email" class="form-control" placeholder="{{formPlaceholders.email}}" formControlName="email" (blur)="onValueChanged()" [ngClass]="{'is-valid': email.valid, 'is-invalid': email.invalid && email.touched}">
+    <div *ngIf="email.valid" class="valid-feedback">{{formSuccess.email}}</div>
+    <div *ngIf="email.invalid && email.touched" class="invalid-feedback">{{formErrors.email}}</div>
   </div>
 
   <div class="mb-3">
-    <label for="age">Возраст: </label>age
-    <input class="form-control" type="text" id="age" placeholder="Возраст" formControlName="age">
-    <div *ngIf="formErrors.age" class="alert alert-danger">{{formErrors.age}}</div>
+    <label for="age">{{label.age}}: <span class="text-danger">*</span></label>
+    <input id="age" type="number" class="form-control" placeholder="{{formPlaceholders.age}}" formControlName="age" (blur)="onValueChanged()" [ngClass]="{'is-valid': age.valid, 'is-invalid': age.invalid && age.touched}">
+    <div *ngIf="age.valid" class="valid-feedback">{{formSuccess.age}}</div>
+    <div *ngIf="age.invalid && age.touched" class="invalid-feedback">{{formErrors.age}}</div>
   </div>
 
   <div class="mb-3">
-    <label for="role">Роль: </label>
-    <select id="role" name="role" class="form-select" formControlName="role">
-      <option selected disabled [value]="null">Выберите роль</option>
+    <label for="role">{{label.role}}: <span class="text-danger">*</span></label>
+    <select id="role" name="role" class="form-select" formControlName="role" (blur)="onValueChanged()" [ngClass]="{'is-valid': role.valid,'is-invalid': role.invalid && role.touched}">
+      <option selected disabled [value]="null">{{formPlaceholders.role}}</option>
       <option *ngFor="let role of roles" [value]="role">{{role}}</option>
     </select>
+    <div *ngIf="role.valid" class="valid-feedback">{{formSuccess.role}}</div>
+    <div *ngIf="role.invalid && role.touched" class="invalid-feedback">{{formErrors.role}}</div>
   </div>
 
   <div class="mb-3">

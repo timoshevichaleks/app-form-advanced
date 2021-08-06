@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { emailValidator, rangeValidator } from '../custom-validators';
+import { FORM_ERRORS, FORM_LABELS, FORM_PLACEHOLDERS, FORM_ROLES, FORM_SUCCESS, FORM_VALIDATION_MESSAGES } from '../form-data';
 import { User } from '../user.class';
 
 @Component({
@@ -10,43 +11,21 @@ import { User } from '../user.class';
 })
 export class FormComponent implements OnInit {
 
+  label = FORM_LABELS;
+  formPlaceholders = FORM_PLACEHOLDERS;
+  formSuccess: any = FORM_SUCCESS;
+  formErrors: any = FORM_ERRORS;
+  validationMessages: any = FORM_VALIDATION_MESSAGES;
+  roles: string[] = FORM_ROLES;
 
   userForm!: FormGroup;
+  private user: User = new User(1, null, null, null, null, null);
 
-  roles: string[] = ['Гость', 'Модератор', 'Администратор'];
-  user: User = new User(1, null, null, null, null, null);
-
-  formErrors: any = {
-      name: '',
-      password: '',
-      email: '',
-      age: '',
-      role: ''
-    }
-
-    validationMessages: any = {
-      name: {
-        required: 'Имя обязательно',
-        minlength: 'Имя должно содержать не менее 4 символов',
-        maxlength: 'Имя должно содержать не более 15 символов'
-      },
-      password: {
-        required: 'Пароль обязателен',
-        minlength: 'Пароль должен содержать не менее 7 символов',
-        maxlength: 'Пароль должен содержать не более 25 символов'
-      },
-      email: {
-        required: 'Email обязателен',
-        emailValidator: 'Неправильный формат email адреса'
-      },
-      age: {
-        required: 'Возраст обязателен',
-        rangeValidator: 'Значение должно быть в диапазоне 18...122'
-      },
-      role: {
-        required: 'Обязательное поле'
-      }
-    }
+  name!: AbstractControl;
+  password!: AbstractControl;
+  email!: AbstractControl;
+  age!: AbstractControl;
+  role!: AbstractControl;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -67,21 +46,24 @@ export class FormComponent implements OnInit {
         Validators.minLength(7),
         Validators.maxLength(25)]
       ],
-      email: [this.user.email, [
-        Validators.required,
-        emailValidator]
-      ],
-      age: [this.user.age, [
-        Validators.required,
-        rangeValidator(18, 122)]
-      ],
+      email: [this.user.email, [Validators.required, emailValidator]],
+      age: [this.user.age, [Validators.required, rangeValidator(18, 122)]],
       role: [this.user.role, [Validators.required]]
     });
+    this.createControls();
 
     this.userForm.valueChanges.subscribe(() => this.onValueChanged());
   }
 
-  private onValueChanged(): void {
+  private createControls() {
+    this.name = this.userForm.controls.name;
+    this.password = this.userForm.controls.password;
+    this.email = this.userForm.controls.email;
+    this.age = this.userForm.controls.age;
+    this.role = this.userForm.controls.role;
+  }
+
+  public onValueChanged(): void {
 
     if (!this.userForm) { return; }
 
@@ -89,7 +71,6 @@ export class FormComponent implements OnInit {
 
     // const keys = Object.keys(this.formErrors);
     // keys.forEach(key => console.log(key));
-
     // const entries = Object.entries(this.formErrors);
     // entries.forEach(([key, value]) => console.log(key));
 
@@ -97,12 +78,15 @@ export class FormComponent implements OnInit {
       this.formErrors[field] = '';
       const control = form.get(field);
 
-      if (control && control.dirty && control.invalid) {
+      if (control && (control.dirty || control.touched) && control.invalid) {
         const message = this.validationMessages[field]
+
+        console.log(control)
 
         for (const key in control.errors) {
           console.log(message[key]);
-          this.formErrors[field] += message[key] + ' ';
+          this.formErrors[field] = message[key];
+          break;
         }
       }
     }
@@ -111,8 +95,6 @@ export class FormComponent implements OnInit {
   onSubmit(form: FormGroup) {
     console.log(form.valid);
     console.log(form.value);
-
-    console.log(this.user);
   }
 }
 

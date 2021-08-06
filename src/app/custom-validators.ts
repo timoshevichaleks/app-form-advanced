@@ -15,10 +15,6 @@ if (!result) {
 }
 
 export function rangeValidator(minValue: number, maxValue: number): any {
-  // Validators.pattern(/^\d+/)
-
-  console.log(minValue);
-  console.log(maxValue);
 
   return (control: AbstractControl): { [key: string]: any } | null => {
     const value = +control.value;
