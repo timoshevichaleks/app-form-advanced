@@ -3,6 +3,7 @@ export const FORM_LABELS = {
     password: 'Пароль',
     email: 'Email',
     age: 'Возраст',
+    site: 'Сайт',
     role: 'Роль'
 }
 
@@ -11,6 +12,7 @@ export const FORM_PLACEHOLDERS = {
     password: 'Введите пароль...',
     email: 'Укажите адрес электронной почты...',
     age: 'Установите возраст...',
+    site: 'Введите адрес сайта...',
     role: 'Выберите роль из списка...'
 }
 
@@ -19,6 +21,7 @@ export const FORM_SUCCESS = {
     password: 'Принято',
     email: 'Принято',
     age: 'Принято',
+    site: 'Принято',
     role: 'Принято'
 }
 
@@ -27,30 +30,36 @@ export const FORM_ERRORS = {
     password: '',
     email: '',
     age: '',
+    site: '',
     role: ''
   }
 
 export const FORM_VALIDATION_MESSAGES = {
     name: {
-      required: 'Имя обязательно',
-      minlength: 'Имя должно содержать не менее 4 символов',
-      maxlength: 'Имя должно содержать не более 15 символов'
+      required: 'Имя обязательно.',
+      minlength: 'Имя должно содержать не менее 4 символов.',
+      maxlength: 'Имя должно содержать не более 15 символов.'
     },
     password: {
-      required: 'Пароль обязателен',
-      minlength: 'Пароль должен содержать не менее 7 символов',
-      maxlength: 'Пароль должен содержать не более 25 символов'
+      required: 'Пароль обязателен.',
+      minlength: 'Пароль должен содержать не менее 7 символов.',
+      maxlength: 'Пароль должен содержать не более 25 символов.'
     },
     email: {
-      required: 'Email обязателен',
-      emailValidator: 'Неправильный формат email адреса'
+      required: 'Email обязателен.',
+      emailValidator: 'Неправильный формат email адреса.'
     },
     age: {
-      required: 'Возраст обязателен',
-      rangeValidator: 'Значение должно быть в диапазоне 18...122'
+      required: 'Возраст обязателен.',
+      rangeValidator: 'Значение должно быть в диапазоне 18...122.'
+    },
+    site: {
+      required: 'Сайт обязателен.',
+      urlNotAllowed: 'Неправильный формат адреса сайта.',
+      pending: 'Выполняется проверка...'
     },
     role: {
-      required: 'Обязательное поле'
+      required: 'Обязательное поле.'
     }
   }
 
